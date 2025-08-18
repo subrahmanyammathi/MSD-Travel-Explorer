@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mera Bharat</title>
+    <link rel="stylesheet" type="text/css" href="css/homestyle.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">
+            <h1 style="font-size: 20px;">Mera Bharat</h1>
+        </div>
+        <div class="menu">
+            <a href="#" style="font-size:">Home</a>
+            <a href="#" onclick="handleGalleryClick()">Gallery</a>
+	    <a href="#" class="contact-link">Contact
+    		<span class="tooltip">
+<span>S.SAMEERA-231FA04001</span>
+
+        	<span>T.Geetha Madhuri-231FA04025</span>        
+		        	<span>D.HARSHA VARDHAN-231FA04039</span>
+		<span>K.VENKATA JASHNAVI-231FA04114</span>
+    		</span>
+		</a>
+	   <a href="#" onclick="LogOutUser()">LogOut</a>
+        </div>
+    </nav>
+
+    <main>
+        <section>
+            <h3>Welcome To India</h3>
+            <h1>DO COME & VISIT <span class="change_content"></span> <span style="margin-top: -10px;"> | </span></h1>
+            <p>"India once is not enough"</p>
+            <a href="#" class="btnone" onclick="openPage('travel.html')">Learn More</a>
+            <a href="#" class="btntwo" onclick="openPage('login.html')">Login Here</a>
+        </section>
+    </main>
+</header>
+
+<script>
+      window.onload = function() {	   
+	   const isLoggedIn = sessionStorage.getItem("LoggedIn");           
+        };
+    // Define the openPage function
+    function openPage(url) {
+        window.location.href = url; // Redirects to the specified URL
+    }
+    function handleGalleryClick() {
+    const isLoggedIn = sessionStorage.getItem("LoggedIn") === "true";
+    if (isLoggedIn) {
+        window.location.href = "gallery.html";
+    } else {
+        let userResponse = confirm("You must be logged in to view the gallery. Would you like to log in now?");
+        if (userResponse) {
+            window.location.href = "login.html";
+        }
+    }
+    }
+    function LogOutUser() {
+	const isLoggedIn = sessionStorage.getItem("LoggedIn") === "true";
+	if(isLoggedIn) {    	
+	let userResponse = confirm("You won't able to Explore. Would you like to LogOff?");
+        if (userResponse) {
+            sessionStorage.setItem("LoggedIn", "false");
+	    alert('Logged out successfully!')
+        }
+	}else{
+	alert('Already Checked Out!')	
+	}
+    }
+</script>
+
+</body>
+</html>

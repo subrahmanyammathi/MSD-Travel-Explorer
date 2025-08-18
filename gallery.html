@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tourist Places Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      display: flex;
+    }
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+    }
+    .header {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 11;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 5px 15px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 11;
+    }
+    .state-select {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
+    .home-button, .map-button {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background-color: #2b2b2b;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .home-button:hover, .map-button:hover {
+      background-color: #4C4C4C;
+    }
+    .slider-container {
+      flex: 1;
+      position: relative;
+    }
+    .slider img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .slider img.visible {
+      opacity: 1;
+    }
+    .caption {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Tourist Places Of Travel</h1>
+    </header>
+    <div class="top-right">
+      <select id="stateSelect" class="state-select">
+        <option value="andhrapradesh" selected>Andhra Pradesh</option>
+        <option value="arunachalpradesh">Arunachal Pradesh</option>
+        <option value="assam">Assam</option>
+        <option value="bihar">Bihar</option>
+        <option value="chhattisgarh">Chhattisgarh</option>
+        <option value="goa">Goa</option>
+        <option value="gujarat">Gujarat</option>
+        <option value="haryana">Haryana</option>
+        <option value="himachalpradesh">Himachal Pradesh</option>
+        <option value="jammu">Jammu</option>
+        <option value="karnataka">Karnataka</option>
+        <option value="kerala">Kerala</option>
+        <option value="madhyapradesh">Madhya Pradesh</option>
+        <option value="maharashtra">Maharashtra</option>
+        <option value="manipur">Manipur</option>
+        <option value="meghalaya">Meghalaya</option>
+        <option value="mizoram">Mizoram</option>
+        <option value="nagaland">Nagaland</option>
+        <option value="odisha">Odisha</option>
+        <option value="punjab">Punjab</option>
+        <option value="rajasthan">Rajasthan</option>
+        <option value="sikkim">Sikkim</option>
+        <option value="tamilnadu">Tamil Nadu</option>
+        <option value="telangana">Telangana</option>
+        <option value="tripura">Tripura</option>
+        <option value="uttarkhand">Uttarkhand</option>
+        <option value="uttarpradesh">Uttar Pradesh</option>
+        <option value="westbengal">West Bengal</option>
+      </select>
+      <button class="home-button" onclick="location.href='home.html'">Home</button>
+      <a href="https://maps.google.com" target="_blank" class="map-button">Google Maps</a>
+    </div>
+    <div class="slider-container">
+      <div class="slider">
+        <img id="slideImage" src="" alt="Tourist Place" />
+        <div class="caption" id="slideCaption"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const stateSlides = {
+      andhrapradesh: [
+        { name: "Araku Valley", image: "assets/ARAKU-VALLEY.jpg" },
+        { name: "Chaparai WaterFalls", image: "assets/ChaparaiWaterFalls.jpg" },
+        { name: "Bheemali Beach", image: "assets/BheemaliBeach.jpg" },
+        { name: "Borra Caves", image: "assets/BorraCaves.jpg" },
+        { name: "Tribal Meusium", image: "assets/TribalMuseum.jpg" },
+        { name: "Submarine Meusium", image: "assets/SubmarimeMeusium.jpg" },
+        { name: "Kailasa Giri", image: "assets/Kailasagiri.jpg" },
+        { name: "RushiKonda Beach", image: "assets/RushiKondaBeach.jpg" },
+        { name: "Yarada Beach", image: "assets/YaradaBeach.jpg" },
+        { name: "Dolphin Beach", image: "assets/DlphinsNose.png" },
+        { name: "Katika WaterFall", image: "assets/KatikaWaterFall.jpg" },
+        { name: "Amaravathi", image: "assets/AMARAVATHI.jpg" },
+        { name: "GandiKota", image: "assets/GANDIKOTA.jpg" }
+      ],
+      arunachalpradesh: [
+        { name: "Dirang", image: "assets/dirang.jpg" },
+        { name: "Tawang", image: "assets/tawang.jpg" },
+        { name: "Bomdila", image: "assets/bomdila.jpg" }
+      ],
+      assam: [
+        { name: "Guwahati", image: "assets/guwahati.jpg" },
+        { name: "Dibrugarh", image: "assets/dibrugarh.jpg" },
+        { name: "Silchar", image: "assets/silchar.jpg" }
+      ],
+      bihar: [
+        { name: "Bodh Gaya", image: "assets/bodhgaya.jpg" },
+        { name: "Bhagalpur", image: "assets/bhagalpur.jpg" },
+        { name: "Sasaram", image: "assets/sasaram.jpg" }
+      ],
+      chhattisgarh: [
+        { name: "Chitrakote Falls", image: "assets/chitrakote.jpg" },
+        { name: "Bhoramdeo Temple", image: "assets/bhoramdeo.jpg" }
+      ],
+      // Add other states similarly...
+    };
+
+    let slideInterval;
+    let currentSlideIndex = 0;
+    let currentSlides = stateSlides["andhrapradesh"];
+
+    const stateSelect = document.getElementById("stateSelect");
+    const slideImage = document.getElementById("slideImage");
+    const slideCaption = document.getElementById("slideCaption");
+
+    function showSlide(index) {
+      const slide = currentSlides[index];
+      slideImage.classList.remove("visible");
+      slideImage.src = slide.image;
+      slideCaption.textContent = slide.name;
+    }
+
+    slideImage.addEventListener("load", function () {
+      slideImage.classList.add("visible");
+    });
+
+    function startSlider() {
+      clearInterval(slideInterval);
+      showSlide(currentSlideIndex);
+      slideInterval = setInterval(() => {
+        currentSlideIndex = (currentSlideIndex + 1) % currentSlides.length;
+        showSlide(currentSlideIndex);
+      }, 3000);
+    }
+
+    stateSelect.addEventListener("change", function () {
+      const selectedState = this.value;
+      if (selectedState && stateSlides[selectedState]) {
+        currentSlides = stateSlides[selectedState];
+        currentSlideIndex = 0;
+        startSlider();
+      }
+    });
+
+    startSlider();
+  </script>
+</body>
+</html>
